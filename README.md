@@ -8,5 +8,5 @@
 
 ## Local Installation
 
-- composer install
-- symfony server:start
+- `composer install`
+- `symfony server:start`
