@@ -5,8 +5,9 @@
 - PHP >= 8.1
 - Symfony CLI (https://symfony.com/download)
 - Composer 2
+- Makefile
 
 ## Local Installation
 
-- `composer install`
+- `make`
 - `symfony server:start`
