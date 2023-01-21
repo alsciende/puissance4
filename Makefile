@@ -5,6 +5,10 @@ install:
 	composer validate
 	composer install
 
-test:
+test: phpstan phpunit
+
+phpstan:
 	vendor/bin/phpstan analyse src tests --level=max
+
+phpunit:
 	bin/phpunit
