@@ -21,7 +21,48 @@ class GameTest extends TestCase
         // nb of rows in each column
         $this->assertEquals(6, count($board[0]));
 
-        // first player is 0, second player is 1
-        $this->assertEquals(0, $game->getActivePlayer());
+        // first player is A, second player is B
+        $this->assertEquals('A', $game->getActivePlayer());
+    }
+
+    public function testPlay()
+    {
+        $game = new Game();
+
+        // play as active player in 4th column
+        $this->assertEquals('A', $game->getActivePlayer());
+        $game->play(3);
+        $board = $game->getBoard();
+        $this->assertEquals('A', $board[3][0]);
+
+        $this->assertEquals('B', $game->getActivePlayer());
+        $game->play(3);
+        $board = $game->getBoard();
+        $this->assertEquals('B', $board[3][1]);
+    }
+
+    public function testSerialize()
+    {
+        $game = new Game();
+
+        // 7*6 markers of empty position
+        $this->assertEquals('..........................................', $game->serialize());
+
+        $game->play(3);
+
+        // serialize left to right, bottom to top
+        $serialization = $game->serialize();
+        $this->assertEquals('..................A.......................', $serialization);
+
+        // deserialize game
+        $resumedGame = new Game($serialization);
+
+        // same board state after deserialization
+        $this->assertEquals('..................A.......................', $resumedGame->serialize());
+        $this->assertEquals('B', $resumedGame->getActivePlayer());
+
+        // next play
+        $resumedGame->play(3);
+        $this->assertEquals('..................AB......................', $resumedGame->serialize());
     }
 }
