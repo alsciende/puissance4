@@ -1,6 +1,6 @@
 {
     "name": "alsciende/puissance4",
-    "description": "The game of Puissance 4",
+    "description": "The famous game of Connect Four",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",
