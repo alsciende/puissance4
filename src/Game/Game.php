@@ -10,6 +10,8 @@ class Game
 {   
     public string $activePlayer = 'A';
     public array $board = array();
+    public int $x;
+    public int $y;
     
 
     public function __construct(string $serialization = '..........................................')
@@ -21,6 +23,8 @@ class Game
         }
         
         $this->board = $factory->buildBoard($serialization);
+        $this->x = 7;
+        $this->y = 6;
     
     }
 
@@ -37,14 +41,14 @@ class Game
         return $this->activePlayer;
     }
 
-    public function play(int $column): int
+    public function play(int $column): void
     {
-        if ($this->board[$column][5] != '.'){
-            return -1;
+        if ($this->board[$column][$this->y-1] != '.'){
+            # raise or whatever
         }
         
-        $n = 0;
-        for ($n; $n<6; $n++)
+        $n = 0;     # we want to keep this value after the loop
+        for ($n; $n<$this->y; $n++)
         {
             if ($this->board[$column][$n] == '.'){
                 break;
@@ -53,7 +57,6 @@ class Game
 
         $this->board[$column][$n] = $this->activePlayer;
         $this->endTurn();
-        return 0;
     }
 
     private function endTurn(): void

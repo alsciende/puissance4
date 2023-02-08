@@ -16,8 +16,15 @@ class BoardFactory
      * @param string $serialization
      * @return array<int, array<int, string|null>>
      */
-    public function buildBoard(string $serialization = '..........................................')
+    public function buildBoard(string $serialization = '..........................................', int $x=7, int $y=6)
     {
+        if ($x*$y!=strlen($serialization)){
+            if (strlen($serialization % $x != 0)){
+
+            } else {
+
+            }
+        }
         return array_map(
             fn ($chars) => $this->buildColumn($chars),
             str_split($serialization, 6)

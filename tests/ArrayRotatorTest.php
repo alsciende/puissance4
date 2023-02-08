@@ -9,21 +9,94 @@ use PHPUnit\Framework\TestCase;
 
 class ArrayRotatorTest extends TestCase
 {
-    public function testArrayRotator(): void
+    /**
+     * @dataProvider provideDataRotate90
+     */
+    public function testArrayRotator90($input, $expected): void
     {
         $rotator = new ArrayRotator();
 
-        $test1 = [[1, 2], [3, 4]];
-        $this->assertEquals([[3, 1], [4, 2]], $rotator->rotate90($test1));
-        $this->assertEquals([[1, 3], [2, 4]], $rotator->flip_diagonal($test1));
+        $this->assertEquals($expected, $rotator->rotate90($input));
 
-        $test2 = [[1, 2, 3], [4, 5, 6]];
-        $this->assertEquals([[4, 1], [5, 2], [6, 3]], $rotator->rotate90($test2));
-        $this->assertEquals([[1, 4], [2, 5], [3, 6]], $rotator->flip_diagonal($test2));
+    }
+    
+    public function provideDataRotate90(): array
+    {
+        return [
+            [
+                [[1, 2], [3, 4]],
+                [[3, 1], [4, 2]],
+            ],
+            [
+                [[1, 2, 3], [4, 5, 6]],
+                [[4, 1], [5, 2], [6, 3]],
+            ],
+            [
+                [[1, 2], [3, 4], [5, 6]],
+                [[5, 3, 1], [6, 4, 2]],
+            ],
+            ];
+    }
 
-        $test3 = [[1, 2], [3, 4], [5, 6]];
-        $this->assertEquals([[5, 3, 1], [6, 4, 2]], $rotator->rotate90($test3));
-        $this->assertEquals([[1, 3, 5], [2, 4, 6]], $rotator->flip_diagonal($test3));
+    /**
+     * @dataProvider provideDataFlipDiag
+     */
+    public function testArrayFlipDiag($input, $expected): void
+    {
+        $rotator = new ArrayRotator();
 
+        $this->assertEquals($expected, $rotator->flipDiagonal($input));
+
+    }
+    
+    public function provideDataFlipDiag(): array
+    {
+        return [
+            [
+                [[1, 2], [3, 4]],
+                [[1, 3], [2, 4]],
+            ],
+            [
+                [[1, 2, 3], [4, 5, 6]],
+                [[1, 4], [2, 5], [3, 6]],
+            ],
+            [
+                [[1, 2], [3, 4], [5, 6]],
+                [[1, 3, 5], [2, 4, 6]],
+            ],
+            ];
+    }
+
+    /**
+     * @dataProvider provideDataRotate45
+     */
+    public function testArrayRotate45($input, $expected): void
+    {
+        $rotator = new ArrayRotator();
+
+        $this->assertEquals($expected, $rotator->rotate45($input));
+
+    }
+    
+    public function provideDataRotate45(): array
+    {
+        return [
+            [
+                [[1, 2], [3, 4]],
+                [[1], [3, 2], [4]],
+            ],
+            [
+                [[1, 2, 3], [4, 5, 6], [7, 8, 9]],
+                [[1], [4, 2], [7, 5, 3], [8, 6], [9]],
+            ],
+            [
+                [[1, 2, 3], [4, 5, 6]],
+                [[1], [4, 2], [5, 3], [6]],
+            ],
+            [
+                [[1, 2], [3, 4], [5, 6]],
+                [[1], [3, 2], [5, 4], [6]],
+            ],
+            ];
     }
 }

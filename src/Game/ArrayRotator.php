@@ -13,9 +13,9 @@ class ArrayRotator
     public function rotate90(array $array, bool $clockwise=true)
     {
         $result = [];
-        $array = $this->flip_diagonal($array);
+        $array = $this->flipDiagonal($array);
         foreach ($array as $line){
-            $result[] = $this->reverse_line($line);
+            $result[] = $this->reverseLine($line);
         }
 
         return $result;
@@ -25,7 +25,7 @@ class ArrayRotator
      * @param array<array> $array
      * @return array<array>
      */
-    public function flip_diagonal(array $array)
+    public function flipDiagonal(array $array)
     {
         $result = [];
         $height = count($array);
@@ -40,10 +40,10 @@ class ArrayRotator
     }
 
     /**
-     * @param array<mixed[int, string]> $array
-     * @return array<mixed[int, string]>
+     * @param array<mixed[]> $array
+     * @return array<mixed[]>
      */
-    public function reverse_line(array $array)
+    public function reverseLine(array $array)
     {
         $result = [];
         $length = count($array);
@@ -53,10 +53,27 @@ class ArrayRotator
         return $result;
     }
 
-
-    /*public function rotate45(string $array): array
+    /**
+     * @param array<mixed[]> $array
+     * @return array<mixed[]>
+     */
+    public function rotate45(array $array): array
     {
         $result = [];
-        
-    }*/
+        $height = count($array);
+        $width = count($array[0]);
+        $smaller = min($height, $width);
+        $bigger = max($height, $width);
+
+        for ($n=0; $n<$bigger+($smaller-1); $n++)
+        {
+            for ($i=$n, $j=0; $i>=0; $i--, $j++)
+            {
+                if ($i<=$height-1 && $j<=$width-1){
+                    $result[$n][] = $array[$i][$j];
+                }
+            }
+        }
+        return $result;
+    }
 }
