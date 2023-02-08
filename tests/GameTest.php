@@ -12,7 +12,7 @@ class GameTest extends TestCase
         $game = new Game();
 
         // board
-        $board = $game->getNewBoard();
+        $board = $game->getBoard();
         $this->assertIsArray($board);
 
         // nb of columns
@@ -32,12 +32,12 @@ class GameTest extends TestCase
         // play as active player in 4th column
         $this->assertEquals('A', $game->getActivePlayer());
         $game->play(3);
-        $board = $game->getNewBoard();
+        $board = $game->getBoard();
         $this->assertEquals('A', $board[3][0]);
 
         $this->assertEquals('B', $game->getActivePlayer());
         $game->play(3);
-        $board = $game->getNewBoard();
+        $board = $game->getBoard();
         $this->assertEquals('B', $board[3][1]);
     }
 

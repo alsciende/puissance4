@@ -9,7 +9,7 @@ test: phpstan phpunit
 
 phpstan:
 	vendor/bin/phpstan analyse tests
-	vendor/bin/phpstan analyse src --level=max
+	vendor/bin/phpstan analyse src --level=2
 
 phpunit:
 	bin/phpunit

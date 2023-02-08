@@ -2,27 +2,32 @@
 
 namespace App\Game;
 
+use App\Game\BoardFactory;
+use App\Game\BoardEvaluator;
+use App\Game\BoardSerializer;
+
 class Game
 {   
     public string $activePlayer = 'A';
     public array $board = array();
     
-    public function __construct(string $serialCode = '..........................................')
+
+    public function __construct(string $serialization = '..........................................')
     {
-        for ($i = 0; $i<7; $i++)
-        {
-            $this->board[$i] = array();
-            for ($j=0; $j<6; $j++)
-            {
-                $this->board[$i][$j] = $serialCode[6*$i + $j];
-            }
-        }
-        if (substr_count($serialCode, 'A') > substr_count($serialCode, 'B')) {
+        $factory = new BoardFactory();
+
+        if (substr_count($serialization, 'A') > substr_count($serialization, 'B')) {
             $this->activePlayer = 'B';
         }
+        
+        $this->board = $factory->buildBoard($serialization);
+    
     }
 
-    public function getNewBoard(): array
+    /**
+     * @return array<array>
+     */
+    public function getBoard()
     {
         return $this->board;
     }
@@ -51,7 +56,7 @@ class Game
         return 0;
     }
 
-    public function endTurn(): void
+    private function endTurn(): void
     {
         if ($this->activePlayer == 'A'){
             $this->activePlayer = 'B';
@@ -62,15 +67,7 @@ class Game
 
     public function serialize(): string
     {
-        $string = '';
-        foreach ($this->board as $column)
-        {
-            foreach ($column as $square)
-            {
-                $string = $string . $square;
-            }
-
-        }
-        return $string;
+        $serializer = new BoardSerializer();
+        return $serializer->serialize($this->board);
     }
 }
