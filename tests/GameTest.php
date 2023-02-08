@@ -25,7 +25,7 @@ class GameTest extends TestCase
         $this->assertEquals('A', $game->getActivePlayer());
     }
 
-    public function testPlay()
+    public function testPlay(): void
     {
         $game = new Game();
 
@@ -41,7 +41,7 @@ class GameTest extends TestCase
         $this->assertEquals('B', $board[3][1]);
     }
 
-    public function testSerialize()
+    public function testSerialize(): void
     {
         $game = new Game();
 

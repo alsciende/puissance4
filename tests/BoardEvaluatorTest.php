@@ -3,6 +3,7 @@
 namespace App\Tests;
 
 use App\Game\BoardEvaluator;
+use App\Game\BoardFactory;
 use PHPUnit\Framework\TestCase;
 
 class BoardEvaluatorTest extends TestCase
@@ -14,7 +15,7 @@ class BoardEvaluatorTest extends TestCase
     {
         $factory = new BoardFactory();
         $board = $factory->buildBoard($input);
-        $evaluator = new BoardEvaluator($board);
+        $evaluator = new BoardEvaluator();
 
         $this->assertEquals(
             $expected,

@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Tests;
+namespace App\Game;
+
+use App\Game\BoardSerializer;
 
 class BoardFactory
 {
@@ -14,7 +16,7 @@ class BoardFactory
      * @param string $serialization
      * @return array<int, array<int, string|null>>
      */
-    public function buildBoard(string $serialization): array
+    public function buildBoard(string $serialization = '..........................................')
     {
         return array_map(
             fn ($chars) => $this->buildColumn($chars),
@@ -22,11 +24,12 @@ class BoardFactory
         );
     }
 
+
     /**
      * @param string $serialization
      * @return array<int, string|null>
      */
-    private function buildColumn(string $serialization): array
+    private function buildColumn(string $serialization)
     {
         return array_map(
             fn ($char) => self::MAPPING[$char],
